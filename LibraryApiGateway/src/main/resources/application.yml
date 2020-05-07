@@ -1,0 +1,45 @@
+api:
+  login:
+    url:
+      path: /users-ms/users/login
+  registration:
+    url:
+      path: /users-ms/users
+  zuul:
+    actuator:
+      url:
+        path: /actuator/*
+  users:
+    actuator:
+      url:
+        path: /users-ms/actuator/*
+authorization:
+  token:
+    header:
+      name: Authorization
+      prefix: Bearer
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8010/eureka
+secret:
+  key: ''
+server:
+  port: 8011
+spring:
+  application:
+    name: apigateway
+  devtools:
+    restart:
+      enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: ''
+    password: ''
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - beans,health,routes,httptrace
