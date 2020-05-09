@@ -12,7 +12,7 @@ public class Util {
 	public String getUserId() {
 		return UUID.randomUUID().toString();
 	}
-	
+
 	public String getSystemIpAddress() throws UnknownHostException {
 		return InetAddress.getLocalHost().getHostAddress();
 	}

@@ -22,8 +22,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	private Util util;
 
 	@Autowired
-	public WebSecurity(Environment environment, IUserService iUserService,
-			BCryptPasswordEncoder bCryptPasswordEncoder, Util util) {
+	public WebSecurity(Environment environment, IUserService iUserService, BCryptPasswordEncoder bCryptPasswordEncoder,
+			Util util) {
 		this.environment = environment;
 		this.iUserService = iUserService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -33,11 +33,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeRequests()
-				.antMatchers("/**").hasIpAddress(environment.getProperty("gateway.api.ip")) // Remote Server Gateway IP Address
-				.antMatchers("/**").hasIpAddress(util.getSystemIpAddress())          // Localhost IP Address
-				.and()
-				.addFilter(getAuthenticationFilter()); 
+		http.authorizeRequests().antMatchers("/**").hasIpAddress(environment.getProperty("gateway.api.ip")) // Remote
+																											// Server
+																											// Gateway
+																											// IP
+																											// Address
+				.antMatchers("/**").hasIpAddress(util.getSystemIpAddress()) // Localhost IP Address
+				.and().addFilter(getAuthenticationFilter());
 		http.headers().frameOptions().disable();
 	}
 
