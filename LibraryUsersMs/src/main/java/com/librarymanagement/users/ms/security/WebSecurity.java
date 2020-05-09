@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.librarymanagement.users.ms.service.IUserService;
+import com.librarymanagement.users.ms.shared.Util;
 
 @Configuration
 @EnableWebSecurity
@@ -18,20 +19,25 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	private Environment environment;
 	private IUserService iUserService;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private Util util;
 
 	@Autowired
 	public WebSecurity(Environment environment, IUserService iUserService,
-			BCryptPasswordEncoder bCryptPasswordEncoder) {
+			BCryptPasswordEncoder bCryptPasswordEncoder, Util util) {
 		this.environment = environment;
 		this.iUserService = iUserService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.util = util;
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/**").hasIpAddress(environment.getProperty("gateway.api.ip")).and()
-				.addFilter(getAuthenticationFilter());
+		http.authorizeRequests()
+				.antMatchers("/**").hasIpAddress(environment.getProperty("gateway.api.ip")) // Remote Server Gateway IP Address
+				.antMatchers("/**").hasIpAddress(util.getSystemIpAddress())          // Localhost IP Address
+				.and()
+				.addFilter(getAuthenticationFilter()); 
 		http.headers().frameOptions().disable();
 	}
 
