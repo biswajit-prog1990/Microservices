@@ -14,6 +14,8 @@ public class CreateUserRequest {
 	@NotNull(message = "Password is mandatory")
 	@Size(min = 8, max = 30, message = "Password should be between 8 and 30 characters")
 	private String password;
+	@NotNull(message = "User Type needs to be mentioned")
+	private String userType;
 
 	public String getFirstName() {
 		return firstName;
@@ -45,6 +47,14 @@ public class CreateUserRequest {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 }

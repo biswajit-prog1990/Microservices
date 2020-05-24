@@ -5,6 +5,7 @@ public class CreateUserResponse {
 	private String lastName;
 	private String userId;
 	private String email;
+	private String userType;
 
 	public String getFirstName() {
 		return firstName;
@@ -36,6 +37,14 @@ public class CreateUserResponse {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 }

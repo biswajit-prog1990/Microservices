@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +28,13 @@ public class UsersController {
 	@Autowired
 	private IUserService iUserService;
 
+	@Value("${secret.key}")
+	private String secretKey;
+
 	@GetMapping("/status/check")
 	public String status() {
 		return "Request received from ip address:" + environment.getProperty("local.server.port")
-				+ " Application Status is up. Secret Key = " + environment.getProperty("secret.key");
+				+ " Application Status is up. Secret Key = " + secretKey;
 	}
 
 	@PostMapping
