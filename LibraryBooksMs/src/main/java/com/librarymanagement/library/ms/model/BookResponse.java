@@ -2,9 +2,11 @@ package com.librarymanagement.library.ms.model;
 
 import java.util.Date;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+@Data
+@NoArgsConstructor
 public class BookResponse {
 
 	private String bookBarcode;
