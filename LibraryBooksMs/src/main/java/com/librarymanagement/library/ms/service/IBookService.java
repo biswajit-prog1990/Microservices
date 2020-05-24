@@ -1,6 +1,6 @@
 package com.librarymanagement.library.ms.service;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
 import com.librarymanagement.library.ms.shared.BookDto;

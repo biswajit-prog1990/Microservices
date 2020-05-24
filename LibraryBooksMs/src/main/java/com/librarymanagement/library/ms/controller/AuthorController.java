@@ -3,6 +3,7 @@ package com.librarymanagement.library.ms.controller;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,15 @@ import com.librarymanagement.library.ms.shared.AuthorDto;
 @RequestMapping("authors")
 public class AuthorController {
 
-	@Autowired
 	IAuthorService iAuthorService;
+	ModelMapper modelMapper;
+
+	@Autowired
+	public AuthorController(IAuthorService iAuthorService, ModelMapper modelMapper) {
+		this.iAuthorService = iAuthorService;
+		this.modelMapper = modelMapper;
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+	}
 
 	@GetMapping("/author/checkStatus")
 	public HttpStatus checkStatus() {
@@ -31,10 +39,9 @@ public class AuthorController {
 
 	@PostMapping
 	public ResponseEntity<AuthorResponse> createAuthor(@Valid @RequestBody AuthorRequest authorRequest) {
-		AuthorDto authorDetails = new ModelMapper().map(authorRequest, AuthorDto.class);
+		AuthorDto authorDetails = modelMapper.map(authorRequest, AuthorDto.class);
 		AuthorDto createdAuthor = iAuthorService.createAuthor(authorDetails);
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(new ModelMapper().map(createdAuthor, AuthorResponse.class));
+		return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(createdAuthor, AuthorResponse.class));
 	}
 
 }

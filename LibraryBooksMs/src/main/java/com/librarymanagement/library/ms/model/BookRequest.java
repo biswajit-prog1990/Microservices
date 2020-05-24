@@ -5,17 +5,13 @@ import javax.validation.constraints.Size;
 
 import com.librarymanagement.library.ms.data.AuthorEntity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Data
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
+@NoArgsConstructor
 public class BookRequest {
 
 	@NotNull(message = "Book name cannot be null")

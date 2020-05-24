@@ -1,6 +1,7 @@
 package com.librarymanagement.library.ms.service;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +15,22 @@ public class AuthorService implements IAuthorService {
 
 	IAuthorRepository iAuthorRepository;
 	Util util;
+	ModelMapper modelMapper;
 
 	@Autowired
-	public AuthorService(IAuthorRepository iAuthorRepository, Util util) {
+	public AuthorService(IAuthorRepository iAuthorRepository, Util util, ModelMapper modelMapper) {
 		this.iAuthorRepository = iAuthorRepository;
 		this.util = util;
-	}
+		this.modelMapper = modelMapper;
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+	}	
 
 	@Override
 	public AuthorDto createAuthor(AuthorDto authorDetails) {
 		authorDetails.setAuthorId(util.getRandomId());
-		AuthorEntity authorEntity = new ModelMapper().map(authorDetails, AuthorEntity.class);
+		AuthorEntity authorEntity = modelMapper.map(authorDetails, AuthorEntity.class);
 		iAuthorRepository.save(authorEntity);
-		return new ModelMapper().map(authorEntity, AuthorDto.class);
+		return modelMapper.map(authorEntity, AuthorDto.class);
 	}
 
 }

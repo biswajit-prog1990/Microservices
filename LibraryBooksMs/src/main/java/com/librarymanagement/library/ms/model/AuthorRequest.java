@@ -3,15 +3,11 @@ package com.librarymanagement.library.ms.model;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
+@NoArgsConstructor
 public class AuthorRequest {
 
 	@NotNull(message = "Author Name cannot be null")

@@ -20,19 +20,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Table(name = "books")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
 public class BookEntity implements Serializable {
 	private static final long serialVersionUID = -9123626716693766066L;
 	@Id
@@ -44,15 +38,15 @@ public class BookEntity implements Serializable {
 	private int bookPrice;
 	@Column
 	private String bookMsdn;
-	@Column(columnDefinition = "varchar(300) default admin")
+	@Column(columnDefinition = "varchar(255) default 'admin'")
 	private String createdBy;
 	@Column
 	@CreationTimestamp
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdDate;
-	@Column
+	@Column(columnDefinition = "varchar(255) default 'admin'")
 	private String updatedBy;
-	@Column(columnDefinition = "varchar(300) default admin")
+	@Column
 	@UpdateTimestamp
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date updatedDate;
