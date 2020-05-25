@@ -59,7 +59,7 @@ public class BookController {
 		return new ResponseEntity<>(bookResponse, HttpStatus.OK);
 	}
 
-	@GetMapping("/book/{authorId}")
+	@GetMapping("/book/author/{authorId}")
 	public Page<BookResponse> getBooksByAuthorId(@PathVariable("authorId") String authorId, Pageable pageable) {
 		Page<BookDto> bookDetail = iBookService.getBooksByAuthor(authorId, pageable);
 		return bookDetail.map(new Function<BookDto, BookResponse>() {
